@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<script type="text/javascript">
+
+    function sendData() {
+        var img = document.querySelector('#imagePicker').files[0];
+        
+        var formData = new FormData();
+        
+        formData.append("img", img);
+
+        fetch('http://localhost:8080/api/foto', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if(!response.ok)
+                throw new Error("não foi possível completar cadastro");
+
+            return response.text();
+        })
+        .then(data => alert(data));
+        
+    
+      
+}
+
+</script>
+
+<body> 
+        <label for="imagePicker">Foto:</label>
+        <input type="file" id="imagePicker" />
+        
+        <input type="button" onclick="sendData()" value="Salvar" />
+</body>
+
+</html>
